@@ -1,6 +1,5 @@
 ////* Challenge Amigo Secreto *///////////
 
-let numeroMaximo = 5;
 let Nombres = []; //lista que guarda los nombres de la caja
 let seleccionarAmigo = '';
 let listaAmigosSorteados = []; //lista para guardar los nombres 
@@ -12,14 +11,19 @@ function agregarAmigo() {
 //verifica si la caja no esta vacia y si no es un número
     if (revisionLista === '' || !isNaN(Number(revisionLista))) {
         alert("El campo esta vacío o es un número. Favor de indicar un Nombre");    
-      return;
+      return limpiarCaja();
     } else {
-            Nombres.push(revisionLista);
-        console.log(Nombres);   
-    }
+        if (!Nombres.includes(revisionLista)) {
+        Nombres.push(revisionLista);
+        console.log(Nombres);
+        } else {
+        alert("Este nombre ya fue agregado.");
+       }
     limpiarCaja();
-    listaHtml();
-} 
+    }
+   listaHtml();
+}
+
 
 
 //limpia la caja despues de colocar un valor 
@@ -48,15 +52,19 @@ function sortearAmigo() {
     let seleccionarAmigo = Nombres[Math.floor(Math.random() * Nombres.length)];
     console.log (seleccionarAmigo);
     console.log(listaAmigosSorteados);
+   
     if (listaAmigosSorteados.includes(seleccionarAmigo)) {
         return sortearAmigo();
     } else {
        listaAmigosSorteados.push(seleccionarAmigo);
        impresionAmigoSecreto(seleccionarAmigo);
-       return seleccionarAmigo; 
-    }
-
     
+    if(listaAmigosSorteados.length === Nombres.length) {
+        alert("Todos los amigos han sido sorteados") 
+       }
+ 
+    }
+    return seleccionarAmigo;
 }
    
 
